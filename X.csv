@@ -1,0 +1,12 @@
+numerical_1,numerical_2,categorical_1,categorical_2,target
+1,10,A,X,1
+2,20,B,Y,0
+,30,A,X,1
+4,40,,Y,0
+5,50,B,,1
+100,60,A,Y,0
+7,70,B,X,1
+8,80,A,Y,0
+,90,B,X,1
+10,,A,Y,0
+10,,A,Y,0

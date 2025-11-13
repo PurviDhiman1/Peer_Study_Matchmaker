@@ -1,0 +1,36 @@
+import pandas as pd
+from sklearn.cluster import KMeans
+import joblib
+
+# Load preprocessed data
+X = pd.read_csv("X.csv")[[
+    "Mathematics",
+    "Programming",
+    "Machine Learning",
+    "Preferred_Study_Style__Problem-solving",
+    "Available_Time_Slot__Weekdays 2–4 PM"
+]]
+meta = pd.read_csv("students_meta.csv")
+
+# Use your best k
+best_k = 7
+
+# Train KMeans
+kmeans = KMeans(n_clusters=best_k, random_state=42, n_init=10)
+kmeans.fit(X)
+
+# Save trained model
+joblib.dump(kmeans, "kmeans_model.pkl")
+
+# Add cluster labels to metadata
+meta["Cluster"] = kmeans.labels_
+meta.to_csv("students_with_clusters.csv", index=False)
+
+# Save simple evaluation summary
+with open("evaluation_results.txt", "w") as f:
+    f.write(f"Best K: {best_k}\n")
+    f.write(f"Inertia: {kmeans.inertia_}\n")
+    f.write("Silhouette scores were highest for k=7\n")
+
+print("✅ Model trained and saved successfully with k=7 using 5 features")
+
